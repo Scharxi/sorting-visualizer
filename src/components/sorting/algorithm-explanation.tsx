@@ -55,6 +55,17 @@ const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
     spaceComplexity: "O(n)",
     stable: true,
   },
+  insertion: {
+    name: "Insertion Sort",
+    description: "Insertion Sort baut die sortierte Liste schrittweise auf, indem jedes Element an der richtigen Position in den bereits sortierten Teil des Arrays eingefügt wird. Ähnlich wie beim Sortieren von Spielkarten in der Hand.",
+    timeComplexity: {
+      best: "O(n)", // Wenn das Array bereits sortiert ist
+      average: "O(n²)",
+      worst: "O(n²)", // Wenn das Array in umgekehrter Reihenfolge sortiert ist
+    },
+    spaceComplexity: "O(1)",
+    stable: true,
+  },
 };
 
 interface AlgorithmExplanationProps {

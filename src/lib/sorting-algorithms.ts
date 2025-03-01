@@ -192,4 +192,36 @@ export async function mergeSort(
 
   await mergeSortHelper(0, array.length - 1);
   return array;
+}
+
+export async function insertionSort(
+  arr: number[],
+  options: SortingOptions
+): Promise<number[]> {
+  const array = [...arr];
+  const n = array.length;
+
+  for (let i = 1; i < n; i++) {
+    const current = array[i];
+    let j = i - 1;
+
+    // Visualisiere das aktuelle Element
+    await options.onStep(array, [i]);
+
+    while (j >= 0 && array[j] > current) {
+      // Visualisiere den Vergleich
+      await options.onStep(array, [j, j + 1]);
+      
+      // Verschiebe Elemente nach rechts
+      array[j + 1] = array[j];
+      await options.onStep(array, [j, j + 1]);
+      j--;
+    }
+
+    // Füge das aktuelle Element an die richtige Position ein
+    array[j + 1] = current;
+    await options.onStep(array, [j + 1]);
+  }
+
+  return array;
 } 

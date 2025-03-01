@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { bubbleSort, quickSort, mergeSort, bogoSort } from "@/lib/sorting-algorithms";
+import { bubbleSort, quickSort, mergeSort, bogoSort, insertionSort } from "@/lib/sorting-algorithms";
 
 export function useArrayOperations(size: number) {
   const [array, setArray] = useState<number[]>([]);
@@ -54,6 +54,7 @@ export function useArrayOperations(size: number) {
         bubble: bubbleSort,
         quick: quickSort,
         merge: mergeSort,
+        insertion: insertionSort,
         bogo: bogoSort
       }[algorithm];
       

@@ -38,6 +38,7 @@ export function SortingControls({
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="bubble">Bubble Sort</SelectItem>
+          <SelectItem value="insertion">Insertion Sort</SelectItem>
           <SelectItem value="quick">Quick Sort</SelectItem>
           <SelectItem value="merge">Merge Sort</SelectItem>
           <SelectItem value="bogo">Bogo Sort</SelectItem>
