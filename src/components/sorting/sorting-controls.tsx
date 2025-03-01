@@ -39,6 +39,7 @@ export function SortingControls({
         <SelectContent>
           <SelectItem value="bubble">Bubble Sort</SelectItem>
           <SelectItem value="quick">Quick Sort</SelectItem>
+          <SelectItem value="bogo">Bogo Sort</SelectItem>
         </SelectContent>
       </Select>
 

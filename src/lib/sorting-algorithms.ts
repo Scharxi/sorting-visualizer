@@ -4,6 +4,20 @@ interface SortingOptions {
   onStep: (array: number[], indices: number[]) => Promise<void>;
 }
 
+function isSorted(arr: number[]): boolean {
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < arr[i - 1]) return false;
+  }
+  return true;
+}
+
+function shuffle(arr: number[]): void {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
 export async function bubbleSort(
   arr: number[],
   options: SortingOptions
@@ -91,5 +105,26 @@ export async function quickSort(
   }
 
   await quickSortHelper(0, array.length - 1);
+  return array;
+}
+
+export async function bogoSort(
+  arr: number[],
+  options: SortingOptions
+): Promise<number[]> {
+  const array = [...arr];
+  let iterations = 0;
+  const maxIterations = 1000; // Sicherheitsabbruch
+
+  while (!isSorted(array) && iterations < maxIterations) {
+    shuffle(array);
+    await options.onStep(array, Array.from({ length: array.length }, (_, i) => i));
+    iterations++;
+  }
+
+  if (iterations >= maxIterations) {
+    console.warn('Bogo Sort: Maximale Iterationen erreicht');
+  }
+
   return array;
 } 

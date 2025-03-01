@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { bubbleSort, quickSort } from "@/lib/sorting-algorithms";
+import { bubbleSort, quickSort, bogoSort } from "@/lib/sorting-algorithms";
 
 export function useArrayOperations(size: number) {
   const [array, setArray] = useState<number[]>([]);
@@ -50,7 +50,11 @@ export function useArrayOperations(size: number) {
       setCompletedIndices([]);
 
       setIsRunning(true);
-      const operations = algorithm === "bubble" ? bubbleSort : quickSort;
+      const operations = {
+        bubble: bubbleSort,
+        quick: quickSort,
+        bogo: bogoSort
+      }[algorithm];
       
       try {
         await operations(array, {

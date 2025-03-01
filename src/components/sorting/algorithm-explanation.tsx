@@ -33,6 +33,17 @@ const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
     spaceComplexity: "O(log n)",
     stable: false,
   },
+  bogo: {
+    name: "Bogo Sort",
+    description: "Bogo Sort (auch bekannt als Stupid Sort) mischt das Array zufällig und prüft, ob es sortiert ist. Dies wird wiederholt, bis das Array zufällig in der richtigen Reihenfolge ist.",
+    timeComplexity: {
+      best: "O(n)",
+      average: "O(n × n!)",
+      worst: "∞",
+    },
+    spaceComplexity: "O(1)",
+    stable: false,
+  },
 };
 
 interface AlgorithmExplanationProps {
