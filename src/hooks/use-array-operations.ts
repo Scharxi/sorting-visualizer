@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { bubbleSort, quickSort, bogoSort } from "@/lib/sorting-algorithms";
+import { bubbleSort, quickSort, mergeSort, bogoSort } from "@/lib/sorting-algorithms";
 
 export function useArrayOperations(size: number) {
   const [array, setArray] = useState<number[]>([]);
@@ -53,10 +53,15 @@ export function useArrayOperations(size: number) {
       const operations = {
         bubble: bubbleSort,
         quick: quickSort,
+        merge: mergeSort,
         bogo: bogoSort
       }[algorithm];
       
       try {
+        if (!operations) {
+          throw new Error('Invalid algorithm selected');
+        }
+
         await operations(array, {
           onStep: (newArray, indices) => {
             if (signal.aborted) {
@@ -68,8 +73,8 @@ export function useArrayOperations(size: number) {
           },
         });
         await celebrateCompletion();
-      } catch (error) {
-        if (error.message !== 'Sorting aborted') {
+      } catch (error: unknown) {
+        if (error instanceof Error && error.message !== 'Sorting aborted') {
           console.error('Sorting error:', error);
         }
       } finally {

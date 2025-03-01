@@ -44,6 +44,17 @@ const ALGORITHM_INFO: Record<string, AlgorithmInfo> = {
     spaceComplexity: "O(1)",
     stable: false,
   },
+  merge: {
+    name: "Merge Sort",
+    description: "Merge Sort ist ein effizienter, stabiler Sortieralgorithmus, der nach dem Teile-und-Herrsche-Prinzip arbeitet. Er teilt das Array rekursiv in kleinere Teilarrays, sortiert diese und führt sie dann wieder zusammen.",
+    timeComplexity: {
+      best: "O(n log n)",
+      average: "O(n log n)",
+      worst: "O(n log n)",
+    },
+    spaceComplexity: "O(n)",
+    stable: true,
+  },
 };
 
 interface AlgorithmExplanationProps {

@@ -127,4 +127,69 @@ export async function bogoSort(
   }
 
   return array;
+}
+
+export async function mergeSort(
+  arr: number[],
+  options: SortingOptions
+): Promise<number[]> {
+  const array = [...arr];
+
+  async function merge(left: number, middle: number, right: number): Promise<void> {
+    const leftArray = array.slice(left, middle + 1);
+    const rightArray = array.slice(middle + 1, right + 1);
+    
+    let i = 0; // Index für leftArray
+    let j = 0; // Index für rightArray
+    let k = left; // Index für das Hauptarray
+
+    while (i < leftArray.length && j < rightArray.length) {
+      // Visualisiere den Vergleich
+      await options.onStep(array, [left + i, middle + 1 + j]);
+
+      if (leftArray[i] <= rightArray[j]) {
+        array[k] = leftArray[i];
+        i++;
+      } else {
+        array[k] = rightArray[j];
+        j++;
+      }
+      
+      // Visualisiere das Einfügen
+      await options.onStep(array, [k]);
+      k++;
+    }
+
+    // Füge verbleibende Elemente aus leftArray ein
+    while (i < leftArray.length) {
+      array[k] = leftArray[i];
+      await options.onStep(array, [k]);
+      i++;
+      k++;
+    }
+
+    // Füge verbleibende Elemente aus rightArray ein
+    while (j < rightArray.length) {
+      array[k] = rightArray[j];
+      await options.onStep(array, [k]);
+      j++;
+      k++;
+    }
+  }
+
+  async function mergeSortHelper(left: number, right: number): Promise<void> {
+    if (left < right) {
+      const middle = Math.floor((left + right) / 2);
+      
+      // Sortiere linke Hälfte
+      await mergeSortHelper(left, middle);
+      // Sortiere rechte Hälfte
+      await mergeSortHelper(middle + 1, right);
+      // Führe die sortierten Hälften zusammen
+      await merge(left, middle, right);
+    }
+  }
+
+  await mergeSortHelper(0, array.length - 1);
+  return array;
 } 
